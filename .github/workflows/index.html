@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王冠必须死 - 权力与背叛的手机游戏</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #e0d0b0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            border-bottom: 2px solid #b8860b;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b8860b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: #e0d0b0;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #b8860b;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #b8860b;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #b8860b;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), 
+                        url('https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #b8860b;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #e0d0b0;
+        }
+        
+        .download-section {
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid #b8860b;
+            max-width: 500px;
+        }
+        
+        .download-section h3 {
+            color: #b8860b;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .download-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+        }
+        
+        .download-icon {
+            font-size: 4rem;
+            color: #b8860b;
+            margin-bottom: 20px;
+        }
+        
+        .download-card h4 {
+            color: #e0d0b0;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .download-card p {
+            color: #999;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .download-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #b8860b;
+            color: #0a0a0a;
+            text-decoration:none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid #b8860b;
+            margin-bottom: 15px;
+          
+        {
+
+          .download-link:hover {
+            background-color: transparent;
+            color: #b8860b;
+        }
+        
+        .file-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* 游戏特色区域 */
+        .features {
+            padding: 80px 0;
+            background-color: #111111;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.2rem;
+            color: #b8860b;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #b8860b;
+            margin: 15px auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #b8860b;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(184, 134, 11, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #b8860b;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #e0d0b0;
+        }
+        
+        /* 游戏截图区域 */
+        .screenshots {
+            padding: 80px 0;
+        }
+        
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .screenshot-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        .screenshot-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .screenshot-caption {
+            background: rgba(10, 10, 10, 0.8);
+            width: 100%;
+            padding: 15px;
+            color: #e0d0b0;
+            text-align: center;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #0a0a0a;
+            padding: 50px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: #b8860b;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #e0d0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #b8860b;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #1a1a1a;
+            border-radius: 50%;
+            color: #b8860b;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #b8860b;
+            color: #0a0a0a;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #1a1a1a
+              padding: 20px;
+                border-top: 1px solid #333;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .screenshot-item {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .download-section {
+                padding: 20px;
+            }
+        }
+    </style>
+    </head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-crown"></i>
+                    <span>王冠必须死</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#features">游戏特色</a></li>
+                    <li><a href="#screenshots">游戏截图</a></li>
+                    <li><a href="#download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>王冠必须死</h1>
+                <p>在权力的游戏中，只有最无情的玩家才能生存。体验这款充满策略与背叛的中世纪手机游戏。</p>
+                
+                <div class="download-section" id="download">
+                    <h3>安卓版下载</h3>
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <h4>Android 版本</h4>
+                        <p>适用于安卓手机和平板设备</p>
+                        <a href="https://pan.baidu.com/s/1example_download_link" class="download-link" target="_blank">下载1</a>
+            <a href="https://pan.baidu.com/s/1example_download_link" class="download-link" target="_blank">下载2</a>
+            <a href="https://pan.baidu.com/s/1example_download_link" class="download-link" target="_blank">下载3</a>
+            <a href="https://pan.baidu.com/s/1example_download_link" class="download-link" target="_blank">下载4</a>
+                        <div class="file-info">
+                            <p>文件大小: 1.2GB | 版本: 1.0.3</p>
+                            <p>提取码: wgbs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 游戏特色 -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">游戏特色</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>残酷的权力斗争</h3>
+                    <p>在充满背叛与阴谋的中世纪王国中，通过策略与武力夺取王位。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>深度策略系统</h3>
+                    <p>精心策划每一步行动，管理资源，结盟与背叛，实现你的野心。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏰</div>
+                    <h3>沉浸式世界</h3>
+                    <p>探索广阔的中世纪王国，从阴森的城堡到繁华的市镇，每个角落都隐藏着秘密。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👑</div>
+                    <h3>多重结局</h3>
+                    <p>你的每个决定都将影响故事走向，解锁不同的结局，体验真正的权力代价。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 游戏截图 -->
+    <section class="screenshots" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">游戏截图</h2>
+            <div class="screenshot-gallery">
+                <div class="screenshot-item">
+                    <img src="1.jpeg" alt="城堡争夺战" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="screenshot-caption">
+                        <h3>城堡争夺战</h3>
+                        <p>指挥你的军队攻占敌方城堡</p>
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="2.jpeg" alt="王座厅决策" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="screenshot-caption">
+                        <h3>王座厅决策</h3>
+                        <p>在王座厅中做出影响王国命运的决定</p>
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="3.jpeg" alt="角色培养" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="screenshot-caption">
+                        <h3>角色培养</h3>
+                        <p>培养你的角色，提升他们的能力和忠诚度</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+   
+                </div>
+                <div class="footer-column">
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="https://space.bilibili.com/3546942650976605"><i class="fab fa-bilibili"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+    
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 王冠必须死 版权所有。保留所有权利。
+            </div>
+        </div>
+    </footer>
+    <script>
+        // 移动菜单切换
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    if(window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        // 窗口调整大小时重置菜单显示
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-links').style.display = 'flex';
+            } else {
+                document.querySelector('.nav-links').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
