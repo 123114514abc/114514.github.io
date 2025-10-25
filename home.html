@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安卓应用下载站 - 海量应用免费下载</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 所有CSS样式保持不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .search-bar input:focus {
+            box-shadow: 0 4px 20px rgba(66, 133, 244, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            border: none;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-bar button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            margin-top: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .search-suggestion {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+        
+        .search-suggestion:hover {
+            background: linear-gradient(135deg, #f8f9ff, #e3f2fd);
+            transform: translateX(5px);
+        }
+        
+        .search-suggestion:last-child {
+            border-bottom: none;
+        }
+        
+        .search-suggestion i {
+            color: #4285f4;
+            font-size: 1.1rem;
+        }
+        
+        .search-suggestion .app-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .search-suggestion .app-category {
+            font-size: 0.8rem;
+            color: #666;
+            margin-left: auto;
+            background: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+        
+        .stats-bar {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 20px 0;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .stats-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px 20px;
+            transition: transform 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .categories {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 0;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+        }
+        
+        .category-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .category {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-weight: 500;
+        }
+        
+        .category:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category.active {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            border-color: #4285f4;
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+        }
+        
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .section-title {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+        
+        .section-title h2 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            border-left: 5px solid #4285f4;
+            padding-left: 15px;
+            font-weight: 700;
+        }
+        
+        .view-all {
+            color: #4285f4;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            background: rgba(66, 133, 244, 0.1);
+        }
+        
+        .view-all:hover {
+            background: #4285f4;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 10px;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .app-image {
+            height: 160px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .app-card:hover .app-image img {
+            transform: scale(1.1);
+        }
+        
+        .app-image .fallback-icon {
+            font-size: 3.5rem;
+            color: #4285f4;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        
+        .app-image img.error + .fallback-icon {
+            display: block;
+        }
+        
+        .app-info {
+            padding: 20px;
+        }
+        
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #2c3e50;
+        }
+        
+        .app-developer {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .app-description {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 40px;
+            line-height: 1.4;
+        }
+        
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .app-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(135deg, #3367d6, #2e8b47);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .featured-section, .popular-section, .new-section {
+            margin-bottom: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-column a:hover {
+            color: #4285f4;
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #34495e;
+            font-size: 0.9rem;
+            color: #95a5a6;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                margin: 10px 0;
+                max-width: 100%;
+            }
+            
+            .apps-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .view-all {
+                align-self: flex-end;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-list {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                gap: 8px;
+            }
+            
+            .category {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .stats-content {
+                gap: 10px;
+            }
+            
+            .stat-item {
+                padding: 8px 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .search-results {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 40px;
+            color: #666;
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fff9c4, #ffeb3b);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .search-info {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95rem;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .search-tips {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            display: none;
+            border-left: 5px solid #4285f4;
+        }
+        
+        .search-tips h4 {
+            margin-bottom: 15px;
+            color: #1565c0;
+            font-weight: 600;
+        }
+        
+        .search-tips ul {
+            padding-left: 20px;
+        }
+        
+        .search-tips li {
+            margin-bottom: 8px;
+            color: #37474f;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4285f4;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: none;
+            font-size: 1.2rem;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-android"></i>
+                    <h1>安卓应用市场</h1>
+                </div>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="搜索应用名称、描述或分类...">
+                        <button id="searchBtn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <!-- 搜索建议将在这里动态显示 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="stats-bar">
+        <div class="container">
+            <div class="stats-content">
+                <div class="stat-item">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">应用总数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">总下载量</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">应用分类</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">免费下载</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="categories">
+        <div class="container">
+            <div class="category-list">
+                <div class="category active" data-category="all">全部应用</div>
+                <div class="category" data-category="tools">系统工具</div>
+                <div class="category" data-category="virtualization">虚拟化</div>
+                <div class="category" data-category="download">下载工具</div>
+                <div class="category" data-category="utility">实用工具</div>
+                <div class="category" data-category="root">Root工具</div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="main-content container">
+        <div class="search-tips" id="searchTips">
+            <h4>搜索提示</h4>
+            <ul>
+                <li>使用应用名称、描述或分类进行搜索</li>
+                <li>支持模糊搜索，如输入"下载"可找到所有下载工具</li>
+                <li>搜索结果会高亮显示匹配的关键词</li>
+                <li>点击搜索建议可快速找到相关应用</li>
+            </ul>
+        </div>
+        
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #666;">正在搜索应用...</p>
+        </div>
+        
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search"></i>
+            <h3>未找到匹配的应用</h3>
+            <p>请尝试使用其他关键词搜索，或浏览分类</p>
+        </div>
+        
+        <div class="search-results" id="searchResults">
+            <div class="section-title">
+                <h2>搜索结果</h2>
+                <span id="resultsCount">找到 0 个应用</span>
+            </div>
+            <div class="search-info" id="searchInfo">
+                <!-- 搜索信息将在这里显示 -->
+            </div>
+            <div class="apps-grid" id="searchResultsGrid">
+                <!-- 搜索结果将在这里动态显示 -->
+            </div>
+        </div>
+        
+        <section class="featured-section" id="featuredSection">
+            <div class="section-title">
+                <h2>精选应用</h2>
+                <a href="#" class="view-all">查看全部 <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="apps-grid" id="featuredAppsGrid">
+                <!-- 精选应用将在这里动态显示 -->
+            </div>
+        </section>
+        
+        <section class="popular-section" id="popularSection">
+            <div class="section-title">
+                <h2>热门应用</h2>
+                <a href="#" class="view-all">查看全部 <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="apps-grid" id="popularAppsGrid">
+                <!-- 热门应用将在这里动态显示 -->
+            </div>
+        </section>
+        
+        <section class="new-section" id="newSection">
+            <div class="section-title">
+                <h2>最新应用</h2>
+                <a href="#" class="view-all">查看全部 <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="apps-grid" id="newAppsGrid">
+                <!-- 最新应用将在这里动态显示 -->
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-info-circle"></i>网站介绍</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i>联系方式</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i>加入我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>帮助中心</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-download"></i>下载说明</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i>常见问题</a></li>
+                        <li><a href="#"><i class="fas fa-comments"></i>用户反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>法律条款</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-file-contract"></i>服务协议</a></li>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i>隐私政策</a></li>
+                        <li><a href="#"><i class="fas fa-gavel"></i>免责声明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>关注我们</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-weibo"></i>官方微博</a></li>
+                        <li><a href="#"><i class="fab fa-weixin"></i>微信公众号</a></li>
+                        <li><a href="#"><i class="fab fa-qq"></i>QQ群</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 安卓应用市场. 保留所有权利. | 为您提供安全可靠的安卓应用下载服务</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" style="display: none;">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- 引入分离的应用数据 -->
+    <script src="app-data.js"></script>
+    
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化应用展示
+            initializeAppSections();
+            
+            // 设置搜索功能
+            setupSearchFunctionality();
+            
+            // 设置分类筛选功能
+            setupCategoryFilter();
+            
+            // 设置返回顶部按钮
+            setupBackToTop();
+            
+            // 设置图片加载错误处理
+            setupImageErrorHandling();
+        });
+
+        // 初始化应用展示区域
+        function initializeAppSections() {
+            // 随机选择应用分配到不同区域
+            const shuffledApps = [...apps].sort(() => Math.random() - 0.5);
+            
+            // 精选应用 - 前16个
+            const featuredApps = shuffledApps.slice(0, 16);
+            renderApps(featuredApps, 'featuredAppsGrid');
+            
+            // 热门应用 - 中间17个
+            const popularApps = shuffledApps.slice(16, 33);
+            renderApps(popularApps, 'popularAppsGrid');
+            
+            // 最新应用 - 最后17个
+            const newApps = shuffledApps.slice(33);
+            renderApps(newApps, 'newAppsGrid');
+        }
+
+        // 设置搜索功能
+        function setupSearchFunctionality() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            const searchTips = document.getElementById('searchTips');
+            const searchContainer = document.querySelector('.search-container');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            // 搜索按钮点击事件
+            searchBtn.addEventListener('click', performSearch);
+            
+            // 回车键搜索
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // 实时搜索建议
+            let debounceTimer;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const searchTerm = this.value.trim().toLowerCase();
+                    
+                    if (searchTerm.length === 0) {
+                        searchSuggestions.style.display = 'none';
+                        searchTips.style.display = 'block';
+                        return;
+                    }
+                    
+                    // 显示搜索建议
+                    showSearchSuggestions(searchTerm);
+                    searchTips.style.display = 'none';
+                }, 300);
+            });
+            
+            // 点击其他地方隐藏搜索建议
+            document.addEventListener('click', function(e) {
+                if (!searchContainer.contains(e.target)) {
+                    searchSuggestions.style.display = 'none';
+                }
+            });
+            
+            // 搜索框获得焦点时显示搜索提示
+            searchInput.addEventListener('focus', function() {
+                if (this.value.trim().length === 0) {
+                    searchTips.style.display = 'block';
+                }
+            });
+            
+            // 搜索框失去焦点时隐藏搜索提示
+            searchInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    searchTips.style.display = 'none';
+                }, 200);
+            });
+            
+            // 执行搜索
+            async function performSearch() {
+                const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+                const searchResultsGrid = document.getElementById('searchResultsGrid');
+                const searchResults = document.getElementById('searchResults');
+                const noResults = document.getElementById('noResults');
+                const featuredSection = document.getElementById('featuredSection');
+                const popularSection = document.getElementById('popularSection');
+                const newSection = document.getElementById('newSection');
+                const resultsCount = document.getElementById('resultsCount');
+                const searchInfo = document.getElementById('searchInfo');
+                const searchTips = document.getElementById('searchTips');
+                
+                // 清空搜索结果
+                searchResultsGrid.innerHTML = '';
+                
+                if (searchTerm === '') {
+                    // 如果搜索词为空，显示所有应用
+                    searchResults.style.display = 'none';
+                    noResults.style.display = 'none';
+                    featuredSection.style.display = 'block';
+                    popularSection.style.display = 'block';
+                    newSection.style.display = 'block';
+                    searchTips.style.display = 'block';
+                    return;
+                }
+                
+                // 显示加载动画
+                loadingSpinner.style.display = 'block';
+                searchResults.style.display = 'none';
+                noResults.style.display = 'none';
+                
+                // 隐藏常规部分
+                featuredSection.style.display = 'none';
+                popularSection.style.display = 'none';
+                newSection.style.display = 'none';
+                searchTips.style.display = 'none';
+                
+                // 模拟搜索延迟
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // 搜索匹配的应用
+                const filteredApps = apps.filter(app => 
+                    app.name.toLowerCase().includes(searchTerm) || 
+                    app.developer.toLowerCase().includes(searchTerm) ||
+                    app.description.toLowerCase().includes(searchTerm) ||
+                    app.category.toLowerCase().includes(searchTerm)
+                );
+                
+                // 隐藏加载动画
+                loadingSpinner.style.display = 'none';
+                
+                if (filteredApps.length > 0) {
+                    // 显示搜索结果
+                    searchResults.style.display = 'block';
+                    noResults.style.display = 'none';
+                    resultsCount.textContent = `找到 ${filteredApps.length} 个应用`;
+                    
+                    // 显示搜索信息
+                    const categories = [...new Set(filteredApps.map(app => app.category))];
+                    searchInfo.innerHTML = `搜索 "<strong>${searchTerm}</strong>" 在 ${categories.length} 个分类中找到 ${filteredApps.length} 个应用`;
+                    
+                    // 渲染搜索结果
+                    filteredApps.forEach(app => {
+                        const appCard = createAppCard(app, searchTerm);
+                        searchResultsGrid.appendChild(appCard);
+                    });
+                } else {
+                    // 显示无结果消息
+                    searchResults.style.display = 'none';
+                    noResults.style.display = 'block';
+                }
+            }
+        }
+
+        // 显示搜索建议
+        function showSearchSuggestions(searchTerm) {
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            
+            // 获取匹配的应用
+            const matchedApps = apps.filter(app => 
+                app.name.toLowerCase().includes(searchTerm) || 
+                app.developer.toLowerCase().includes(searchTerm) ||
+                app.description.toLowerCase().includes(searchTerm) ||
+                app.category.toLowerCase().includes(searchTerm)
+            ).slice(0, 5); // 只显示前5个建议
+            
+            if (matchedApps.length > 0) {
+                searchSuggestions.innerHTML = '';
+                
+                matchedApps.forEach(app => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'search-suggestion';
+                    suggestion.innerHTML = `
+                        <i class="fas ${app.icon}"></i>
+                        <span class="app-name">${highlightText(app.name, searchTerm)}</span>
+                        <span class="app-category">${app.category}</span>
+                    `;
+                    
+                    suggestion.addEventListener('click', function() {
+                        document.getElementById('searchInput').value = app.name;
+                        performSearch();
+                        searchSuggestions.style.display = 'none';
+                    });
+                    
+                    searchSuggestions.appendChild(suggestion);
+                });
+                
+                searchSuggestions.style.display = 'block';
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        }
+
+        // 渲染应用到指定容器
+        function renderApps(appsArray, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            appsArray.forEach(app => {
+                const appCard = createAppCard(app);
+                container.appendChild(appCard);
+            });
+        }
+
+        // 创建应用卡片
+        function createAppCard(app, searchTerm = '') {
+            const appCard = document.createElement('div');
+            appCard.className = 'app-card';
+            appCard.setAttribute('data-category', app.category);
+            appCard.setAttribute('data-name', app.name);
+            
+            // 高亮搜索关键词
+            const highlightedName = searchTerm ? highlightText(app.name, searchTerm) : app.name;
+            const highlightedDescription = searchTerm ? highlightText(app.description, searchTerm) : app.description;
+            
+            appCard.innerHTML = `
+                <div class="app-image">
+                    <img src="https://via.placeholder.com/300x160/4285f4/ffffff?text=${encodeURIComponent(app.name.substring(0, 12))}" alt="${app.name}" onerror="handleImageError(this)">
+                    <i class="fas ${app.icon} fallback-icon"></i>
+                </div>
+                <div class="app-info">
+                    <h3 class="app-title">${highlightedName}</h3>
+                    <p class="app-developer">${app.developer}</p>
+                    <p class="app-description">${highlightedDescription}</p>
+                    <div class="app-meta">
+                        <span><i class="fas fa-star"></i> ${app.rating}</span>
+                        <span><i class="fas fa-download"></i> ${app.downloads}</span>
+                        <span><i class="fas fa-weight-hanging"></i> ${app.size}</span>
+                    </div>
+                    <a href="${app.link}" class="download-btn" target="_blank">
+                        <i class="fas fa-download"></i> 立即下载
+                    </a>
+                </div>
+            `;
+            
+            return appCard;
+        }
+
+        // 高亮文本中的关键词
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+        
+        // 设置分类筛选功能
+        function setupCategoryFilter() {
+            document.querySelectorAll('.category').forEach(category => {
+                category.addEventListener('click', function() {
+                    // 更新活动类别
+                    document.querySelectorAll('.category').forEach(cat => {
+                        cat.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    const selectedCategory = this.getAttribute('data-category');
+                    const appCards = document.querySelectorAll('.app-card');
+                    
+                    appCards.forEach(card => {
+                        if (selectedCategory === 'all' || card.getAttribute('data-category') === selectedCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // 设置返回顶部按钮
+        function setupBackToTop() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'flex';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // 设置图片加载错误处理
+        function setupImageErrorHandling() {
+            window.handleImageError = function(img) {
+                img.style.display = 'none';
+                img.nextElementSibling.style.display = 'block';
+            };
+        }
+    </script>
+</body>
+</html>
